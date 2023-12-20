@@ -12,11 +12,11 @@ class UserController extends Controller
 {
     public function index()
     {
-         
+
         $users = User::paginate();
         $userData = new UserResource($users);
 
-        return view('viewapi', ['userData' => $userData]);
+        return view('user-list', ['userData' => $userData]);
     }
 
     public function store(StoreUpdateUserRequest $request)
@@ -26,7 +26,15 @@ class UserController extends Controller
 
         $user = User::create($data);
 
-        return new UserResource($user);
+        if ($user) {
+            $userCreate = new UserResource($user);
+            $response = response()->json([
+                "message"   => "Usuário cadastrado com sucesso.",
+                "usuario"   => $userCreate->name,
+                "email"     => $userCreate->email,
+            ], 200);
+            return $response;
+        }
     }
 
     public function show(string $id)
@@ -45,13 +53,21 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->update($data);
 
-        return new UserResource($user);
+        $userUpdated = new UserResource($user);
+
+        $response = response()->json([
+            "message"   => "Usuário atualizado com sucesso",
+            "newEmail"  => $userUpdated->email,
+            "newName"   => $userUpdated->name
+        ]);
+
+        return $response;
     }
 
     public function destroy(string $id)
     {
-        User::findOrFail($id)->delete();
+        $user = User::findOrFail($id);
 
-        return response()->json([], 204);
+        $deletedUser = $user->delete();
     }
 }
