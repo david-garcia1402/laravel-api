@@ -2,7 +2,7 @@
 
 ## Descrição
 
-Este projeto consiste em um CRUD de usuários, no qual as operações de inserção, leitura, atualização e exclusão são realizadas através de chamadas a APIs. As informações do usuário são manipuladas utilizando a extensão Thunder Client no Visual Studio Code, proporcionando um gerenciamento eficiente das requisições.
+Este projeto consiste em um CRUD de usuários, no qual as operações de inserção, leitura, atualização e exclusão são realizadas através de chamadas a APIs. As informações do usuário são manipuladas utilizando a extensão Thunder Client (caso você queira, pode usar outros Clients API) no Visual Studio Code, proporcionando um gerenciamento eficiente das requisições.
 
 ## Instruções de Instalação
 
