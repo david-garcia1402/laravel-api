@@ -24,9 +24,6 @@ class UserController extends Controller
             return $users;
         }
 
-        // return $users->toJson();
-
-
     }
 
     public function store(StoreUpdateUserRequest $request)
