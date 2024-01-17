@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Response;
+use App\Http\Exception\CustomApiException;
 use App\Http\Requests\StoreUpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -13,10 +14,19 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = User::paginate();
-        $userData = new UserResource($users);
+        $users = User::all();
 
-        return view('user-list', ['userData' => $userData]);
+        if ($users->count() === 0)
+        {
+            $return = new CustomApiException('Nenhum usuário cadastrado no momento', 404);
+            $return->ApiStatus();
+        } else {
+            return $users;
+        }
+
+        // return $users->toJson();
+
+
     }
 
     public function store(StoreUpdateUserRequest $request)
