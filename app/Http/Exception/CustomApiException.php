@@ -17,8 +17,6 @@ class CustomApiException extends HttpException
 
     public function ApiStatus()
     {
-        // dd('oi');
-
         $return = abort(
             $this->code,
             $this->message
